@@ -19,7 +19,7 @@
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      height: 25vh; /* Dynamic height based on viewport */
+      height: 25vh;
     }
 
     /* Navigation bar */
@@ -115,6 +115,21 @@
       border: 1px solid #ddd;
       border-radius: 5px;
     }
+
+    /* Search Message */
+    #searchMessage {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    /* Total Count Message */
+    #totalCountMessage {
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #333;
+    }
+
   </style>
 </head>
 <body>
@@ -122,19 +137,23 @@
   <!-- Header -->
   <header></header>
 
-
-
   <!-- Navigation Tabs -->
   <nav>
     <a href="#" onclick="switchSheet('Patibayan1')">Patibayan 1</a>
     <a href="#" onclick="switchSheet('Patibayan2')">Patibayan 2</a>
   </nav>
 
-    <!-- Active Patibayan Title -->
-    <h1><span id="activePatibayan">Patibayan1</span></h1>
+  <!-- Active Patibayan Title -->
+  <h1><span id="activePatibayan">Patibayan1</span></h1>
 
   <!-- Search Bar -->
   <input type="text" id="searchInput" placeholder="Search for races..." onkeyup="searchResults()">
+
+  <!-- Search Instructions Message -->
+  <p id="searchMessage">Search for your Player Name, Loft Name or Pigeon ID</p>
+
+  <!-- Total Count of Birds -->
+  <p id="totalCountMessage">Total Birds: 0</p>
   
   <!-- Table -->
   <table class="results-table">
@@ -147,8 +166,6 @@
     <img src="https://media.tenor.com/zxJMTNCOhbkAAAAM/pegion.gif" alt="Loading...">
   </div>
 
-  <!-- No Data Message -->
-  <p id="noDataMessage" style="display: none;">No race results available.</p>
 
   <!-- Footer -->
   <footer>
@@ -171,6 +188,7 @@
 
     let currentSheet = 'Patibayan1'; // Default tab on page load
     let raceData = []; // To store the race data for faster access
+    let filteredData = []; // To store filtered data for search results
 
     // Fetch data for the selected Patibayan
     async function fetchRaceData(sheetKey) {
@@ -190,7 +208,9 @@
 
         const data = await response.json();
         raceData = data.values; // Cache the data
-        displayRaceResults(raceData);
+        filteredData = raceData.slice(1); // Excluding the header row
+        displayRaceResults(raceData); // Display all results initially
+        updateTotalCount(filteredData); // Update the total count for active birds
       } catch (error) {
         console.error('Error fetching race data:', error);
         document.getElementById('noDataMessage').innerText = 'Failed to load data.';
@@ -231,26 +251,27 @@
       }
     }
 
+    // Function to update the total number of active birds
+    function updateTotalCount(filteredRows) {
+      const totalCountMessage = document.getElementById('totalCountMessage');
+      totalCountMessage.innerText = `Total Birds: ${filteredRows.length}`;
+    }
+
     // Update the active Patibayan title
-// Update the active Patibayan title, clear the search bar when switching tabs, 
-// and apply the same search query to the new tab
-function switchSheet(sheetKey) {
-  currentSheet = sheetKey;
-  document.getElementById('activePatibayan').textContent = sheetKey;
+    function switchSheet(sheetKey) {
+      currentSheet = sheetKey;
+      document.getElementById('activePatibayan').textContent = sheetKey;
 
-  // Get the current search input value
-  let searchQuery = document.getElementById('searchInput').value;
+      // Get the current search input value
+      let searchQuery = document.getElementById('searchInput').value;
 
-  // Fetch the new race data for the selected tab
-  fetchRaceData(sheetKey).then(() => {
-    // After data is loaded, trigger the search automatically
-    document.getElementById('searchInput').value = searchQuery;
-    searchResults(); // Re-apply the search on the new tab
-  });
-}
-
-
-
+      // Fetch the new race data for the selected tab
+      fetchRaceData(sheetKey).then(() => {
+        // After data is loaded, trigger the search automatically
+        document.getElementById('searchInput').value = searchQuery;
+        searchResults(); // Re-apply the search on the new tab
+      });
+    }
 
     // Search function with debounce to filter the table
     let debounceTimeout;
@@ -260,8 +281,7 @@ function switchSheet(sheetKey) {
 
       debounceTimeout = setTimeout(() => {
         let input = document.getElementById('searchInput').value.toLowerCase();
-        let rows = raceData.slice(1); // Skip header row
-        let filteredRows = rows.filter(row => {
+        let filteredRows = raceData.slice(1).filter(row => {
           return row.some(cell => cell.toLowerCase().includes(input));
         });
 
@@ -282,6 +302,9 @@ function switchSheet(sheetKey) {
         } else {
           document.getElementById('noDataMessage').style.display = 'block';
         }
+
+        // Update the total count of filtered birds
+        updateTotalCount(filteredRows);
       }, searchDelay); // Delay the search function by `searchDelay` milliseconds
     }
 
