@@ -22,21 +22,45 @@
       height: 25vh;
     }
 
-    .results-container {
+    .tabs {
       display: flex;
       justify-content: center;
-      gap: 20px; /* Adjusted gap */
-      flex-wrap: wrap; /* Allow wrapping of tables */
-      margin: 40px auto;
+      gap: 20px;
+      background-color: #004d00;
+      padding: 10px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      color: white;
+      border: none;
+      background: none;
+      font-size: 1em;
+    }
+
+    .tab.active {
+  background-color: #007500;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+    .tab-content {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     /* Table Style */
     .results-table {
-      width: 100%; /* Make the table width 100% for better responsiveness */
+      width: 80%;
+      margin: 10px auto;
       border-collapse: collapse;
-      table-layout: auto; /* Ensures dynamic column resizing */
-      min-width: 300px; /* Ensures a minimum table width */
-      max-width: 500px; /* Limits table width on larger screens */
+      table-layout: auto;
+      min-width: max-content;
     }
 
     .results-table th, .results-table td {
@@ -68,18 +92,6 @@
       background-color: #e0e0e0;
     }
 
-    /* No Data Message */
-    #noDataMessage {
-      color: red;
-      font-size: 1.2em;
-      margin-top: 20px;
-    }
-
-    #loadingIndicator img {
-      width: 150px;
-      height: auto;
-    }
-
     /* Footer */
     footer {
       background-color: #004d00;
@@ -98,41 +110,145 @@
       text-decoration: underline;
     }
 
-    /* Search Bar */
-    #searchInput {
-      margin: 20px auto;
-      width: 40%;
-      padding: 10px;
-      font-size: 1em;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+    .searchInput {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 500px;
+  padding: 10px;
+  font-size: 1.2em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+
+/* Style for displaying tables side by side with space between them */
+.tables-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Adds space between tables */
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* Add space between Patibayan tables */
+.table-container {
+  width: 45%;
+  text-align: center;
+  margin-bottom: 20px; /* Adds space between the rows of Patibayan tables */
+}
+
+/* Ensure Patibayan 1 has space on the right */
+.table-container:first-child {
+  margin-right: 20px; /* Creates space between the two Patibayan tables */
+}
+
+
+
+    /* Title for Patibayan 1 and 2 */
+    .patibayan-title {
+      text-align: center;
     }
 
-    /* Search Message */
-    #searchMessage {
-      font-size: 1.2em;
-      margin-top: 10px;
-      color: #333;
-    }
 
-    /* Total Count Message */
-    #totalCountMessage {
-      margin-top: 20px;
-      font-size: 1.1em;
-      color: #333;
-    }
 
-    /* Media Query for Mobile Devices */
-    @media (max-width: 768px) {
-      .results-container {
-        flex-direction: row; /* Stack the tables vertically */
-        gap: 10px; /* Adjust the gap */
-      }
+/* Center the search box below the navigation bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Space between the nav bar and search box */
+  margin-bottom: 20px; /* Space between search box and tables */
+}
 
-      #searchInput {
-        width: 80%; /* Make the search bar wider on mobile */
-      }
-    }
+
+
+/* Style for displaying tables side by side with space between them */
+.tables-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Adds space between tables */
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.table-container {
+  width: 45%;
+  text-align: center;
+  margin-bottom: 20px; /* Adds space between the rows of Patibayan tables */
+}
+
+/* Ensure Patibayan 1 has space on the right */
+.table-container:first-child {
+  margin-right: 20px; /* Creates space between the two Patibayan tables */
+}
+
+/* Title for Patibayan 1 and 2 */
+.patibayan-title {
+  text-align: center;
+}
+
+/* Add the following media query for mobile-friendly layout */
+@media (max-width: 768px) {
+  /* Stack tabs vertically */
+  .tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Style for the tables container (side by side to stacked vertically) */
+  .tables-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .table-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Ensure the header and title fonts are readable on mobile */
+  header {
+    height: 30vh; /* Give more space for the header on mobile */
+  }
+
+  /* Make the header text larger on mobile */
+  h1 {
+    font-size: 1.5em;
+  }
+
+  /* Search box input width for mobile */
+  .searchInput {
+    width: 100%; /* Make the search input take full width */
+    font-size: 1.1em;
+    padding: 12px;
+  }
+
+  /* Adjust the footer */
+  footer {
+    padding: 15px 10px;
+  }
+  
+  /* Adjust the tab buttons for smaller screens */
+  .tab {
+    font-size: 1em;
+    padding: 8px;
+  }
+  
+  /* Ensure the race results table is scrollable horizontally */
+  .results-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .results-table th, .results-table td {
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+}
+
 
   </style>
 </head>
@@ -144,37 +260,91 @@
   <!-- Title -->
   <h1>Race Results</h1>
 
-  <!-- Search Bar -->
-  <input type="text" id="searchInput" placeholder="Search for races..." onkeyup="searchResults()">
+  <!-- Tabs for Navigation -->
+  <div class="tabs">
+    <button class="tab" onclick="showTab('derby')">Derby</button>
+    <button class="tab" onclick="showTab('funrace1')">Funrace 1</button>
+    <button class="tab" onclick="showTab('funrace2')">Funrace 2</button>
+    <button class="tab" onclick="showTab('superfunrace')">Super Funrace</button>
+    <button class="tab" onclick="showTab('patibayan')">Patibayan</button>
+  </div>
 
-  <!-- Search Instructions Message -->
-  <p id="searchMessage">Search for your Player Name, Loft Name or Pigeon ID</p>
+  <!-- Tab Content -->
+  <div id="derby" class="tab-content">
+    <!-- Search Bar for Derby -->
+    <input type="text" id="derbySearch" class="searchInput" onkeyup="filterTable('derby')" placeholder="Search results Derby...">
+    <table class="results-table" id="derbyTable">
+      <thead id="derbyHeader"></thead>
+      <tbody id="derbyBody"></tbody>
+    </table>
+  </div>
 
-  <!-- Total Count of Birds -->
-  <p id="totalCountPatibayan1">Total Birds in Patibayan 1: 0</p>
-  <p id="totalCountPatibayan2">Total Birds in Patibayan 2: 0</p>
-  <p id="totalCountMessage">Total Birds: 0</p>
+  <div id="funrace1" class="tab-content">
+    <!-- Search Bar for FUNRACE1 -->
+    <input type="text" id="funrace1Search" class="searchInput" onkeyup="filterTable('funrace1')" placeholder="Search results Funrace 1...">
+    <table class="results-table" id="funrace1Table">
+      <thead id="funrace1Header"></thead>
+      <tbody id="funrace1Body"></tbody>
+    </table>
+  </div>
 
-  <!-- Results Container -->
-  <div class="results-container">
-    <!-- Patibayan 1 Table -->
-    <div>
-      <h2>Patibayan 1</h2>
-      <table class="results-table" id="patibayan1Table">
-        <thead id="patibayan1Header"></thead>
-        <tbody id="patibayan1Body"></tbody>
-      </table>
+  <div id="funrace2" class="tab-content">
+    <!-- Search Bar for FUNRACE2 -->
+    <input type="text" id="funrace2Search" class="searchInput" onkeyup="filterTable('funrace2')" placeholder="Search results Funrace 2...">
+    <table class="results-table" id="funrace2Table">
+      <thead id="funrace2Header"></thead>
+      <tbody id="funrace2Body"></tbody>
+    </table>
+  </div>
+
+  <div id="superfunrace" class="tab-content">
+    <!-- Search Bar for SUPERFUNRACE -->
+    <input type="text" id="superfunraceSearch" class="searchInput" onkeyup="filterTable('superfunrace')" placeholder="Search results Super Funrace...">
+    <table class="results-table" id="superfunraceTable">
+      <thead id="superfunraceHeader"></thead>
+      <tbody id="superfunraceBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Patibayan Tab Content -->
+  <div id="patibayan" class="tab-content">
+    <!-- Centered Search Box Below the Navigation Bar -->
+    <div class="search-container">
+      <input type="text" id="patibayanSearch" class="searchInput" onkeyup="filterPatibayanTables()" placeholder="Search results for Patibayan...">
     </div>
-
-    <!-- Patibayan 2 Table -->
-    <div>
-      <h2>Patibayan 2</h2>
-      <table class="results-table" id="patibayan2Table">
-        <thead id="patibayan2Header"></thead>
-        <tbody id="patibayan2Body"></tbody>
-      </table>
+    
+  
+    <div class="tables-container">
+      <!-- Patibayan Table with Search Box Above Title -->
+      <div class="table-container">
+        <h2 class="patibayan-title">Patibayan 1</h2>
+        <table class="results-table" id="patibayan1Table">
+          <thead id="patibayan1Header"></thead>
+          <tbody id="patibayan1Body"></tbody>
+        </table>
+      </div>
+  
+      <div class="table-container">
+        <h2 class="patibayan-title">Patibayan 2</h2>
+        <table class="results-table" id="patibayan2Table">
+          <thead id="patibayan2Header"></thead>
+          <tbody id="patibayan2Body"></tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <nav class="tabs">
+    <button class="tab" onclick="showTab('derby')">Derby</button>
+    ...
+  </nav>
+  
+
+  <!-- Footer -->
+  <footer>
+    <p>Follow us on social media:</p>
+    <a href="https://www.facebook.com/profile.php?id=61561642689457" target="_blank">Facebook</a>
+  </footer>
 
   <!-- Loading Indicator -->
   <div id="loadingIndicator" style="display: none;">
@@ -184,158 +354,161 @@
   <!-- No Data Message -->
   <p id="noDataMessage" style="display: none;">No race results available.</p>
 
-  <!-- Footer -->
-  <footer>
-    <p>Follow us on social media:</p>
-    <a href="https://www.facebook.com/profile.php?id=61561642689457" target="_blank">Facebook</a>
-  </footer>
-
+  <!-- Script to Fetch and Display Data -->
   <script>
+    // Function to show a specific tab
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.getElementById(tabId).classList.add('active');
+  
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+    }
+
     const apiKey = 'AIzaSyDnQPBVIY-hChWThux9R8WknqvuDHsDFog'; // Replace with your API key
     const sheetDetails = {
-      'Patibayan1': {
-        sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', // Google Sheet ID
-        sheetName: 'PATIBAYAN1' // Sheet name for Patibayan 1
-      },
-      'Patibayan2': {
-        sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', // Same Google Sheet ID
-        sheetName: 'PATIBAYAN2' // Sheet name for Patibayan 2
-      }
+      'Derby': { sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', sheetName: 'DERBY' },
+      'FUNRACE1': { sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', sheetName: 'FUNRACE1' },
+      'FUNRACE2': { sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', sheetName: 'FUNRACE2' },
+      'SUPERFUNRACE': { sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', sheetName: 'SUPERFUNRACE' },
+      'Patibayan1': { sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', sheetName: 'PATIBAYAN1' },
+      'Patibayan2': { sheetId: '1Qj0JA9RpdUs2BvQ7gn6c4JVRFmT1vDKlcooEOWn8xjI', sheetName: 'PATIBAYAN2' }
     };
 
-    let raceDataPatibayan1 = []; // To store the Patibayan 1 race data
-    let raceDataPatibayan2 = []; // To store the Patibayan 2 race data
-    let filteredDataPatibayan1 = []; // To store filtered data for search results (Patibayan 1)
-    let filteredDataPatibayan2 = []; // To store filtered data for search results (Patibayan 2)
+    let raceData = {};
+    Object.keys(sheetDetails).forEach(sheet => {
+      raceData[sheet] = [];
+    });
 
-    // Fetch data for both Patibayan 1 and Patibayan 2
+    // Fetch race data from Google Sheets
     async function fetchRaceData() {
       try {
         document.getElementById('loadingIndicator').style.display = 'block';
         document.getElementById('noDataMessage').style.display = 'none';
 
-        // Fetch Patibayan 1 Data
-        const response1 = await fetch(
-          `https://sheets.googleapis.com/v4/spreadsheets/${sheetDetails.Patibayan1.sheetId}/values/${sheetDetails.Patibayan1.sheetName}?key=${apiKey}`
+        const requests = Object.keys(sheetDetails).map(sheet => 
+          fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetDetails[sheet].sheetId}/values/${sheetDetails[sheet].sheetName}?key=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+              raceData[sheet] = data.values;
+            })
+            .catch(error => console.error(error))
         );
-        const data1 = await response1.json();
-        raceDataPatibayan1 = data1.values;
 
-        // Fetch Patibayan 2 Data
-        const response2 = await fetch(
-          `https://sheets.googleapis.com/v4/spreadsheets/${sheetDetails.Patibayan2.sheetId}/values/${sheetDetails.Patibayan2.sheetName}?key=${apiKey}`
-        );
-        const data2 = await response2.json();
-        raceDataPatibayan2 = data2.values;
+        await Promise.all(requests);
 
-        // Filtered Data
-        filteredDataPatibayan1 = raceDataPatibayan1.slice(1); // Skipping the header row
-        filteredDataPatibayan2 = raceDataPatibayan2.slice(1); // Skipping the header row
+        displayRaceResults('derby', raceData.Derby);
+        displayRaceResults('funrace1', raceData.FUNRACE1);
+        displayRaceResults('funrace2', raceData.FUNRACE2);
+        displayRaceResults('superfunrace', raceData.SUPERFUNRACE);
+        displayRaceResults('patibayan1', raceData.Patibayan1);
+        displayRaceResults('patibayan2', raceData.Patibayan2);
 
-        // Display results for both Patibayan 1 and Patibayan 2
-        displayRaceResults('patibayan1', raceDataPatibayan1);
-        displayRaceResults('patibayan2', raceDataPatibayan2);
-        updateTotalCount(filteredDataPatibayan1, filteredDataPatibayan2); // Update the total count
-      } catch (error) {
-        console.error('Error fetching race data:', error);
-        document.getElementById('noDataMessage').innerText = 'Failed to load data.';
-        document.getElementById('noDataMessage').style.display = 'block';
-      } finally {
         document.getElementById('loadingIndicator').style.display = 'none';
-      }
+        if (Object.values(raceData).some(data => data.length === 0)) {
+          document.getElementById('noDataMessage').style.display = 'block';
+        }
+      } catch (error) {
+  document.getElementById('loadingIndicator').style.display = 'none';
+  document.getElementById('noDataMessage').style.display = 'block';
+  console.error('Error fetching data:', error);
+}
+
     }
 
-    // General function to display race results (for both Patibayan 1 and Patibayan 2)
-    function displayRaceResults(tableIdPrefix, data) {
-      const tableHeader = document.getElementById(tableIdPrefix + 'Header');
-      const tableBody = document.getElementById(tableIdPrefix + 'Body');
-      tableHeader.innerHTML = '';
-      tableBody.innerHTML = '';
+    fetchRaceData();
 
-      if (data && data.length > 0) {
-        const headers = data[0];
+    // Function to display the fetched data in the respective tables
+    function displayRaceResults(raceType, raceData) {
+      const tableBody = document.getElementById(raceType + 'Body');
+      const tableHeader = document.getElementById(raceType + 'Header');
+      tableBody.innerHTML = '';
+      tableHeader.innerHTML = '';
+
+      if (raceData.length > 0) {
+        // Set up table headers
+        const headers = raceData[0];
         const headerRow = document.createElement('tr');
         headers.forEach(header => {
           const th = document.createElement('th');
-          th.innerText = header;
+          th.textContent = header;
           headerRow.appendChild(th);
         });
         tableHeader.appendChild(headerRow);
 
-        data.slice(1).forEach(rowData => {
+        // Populate table rows
+        raceData.slice(1).forEach(rowData => {
           const row = document.createElement('tr');
           rowData.forEach(cellData => {
             const td = document.createElement('td');
-            td.innerText = cellData;
+            td.textContent = cellData;
             row.appendChild(td);
           });
           tableBody.appendChild(row);
         });
-      } else {
-        document.getElementById('noDataMessage').style.display = 'block';
       }
     }
 
-    // Function to update the total number of active birds
-    function updateTotalCount(filteredRows1, filteredRows2) {
-      const totalCountPatibayan1 = document.getElementById('totalCountPatibayan1');
-      const totalCountPatibayan2 = document.getElementById('totalCountPatibayan2');
-      const totalCountMessage = document.getElementById('totalCountMessage');
+    // Function to filter data in the tables
+    function filterTable(raceType) {
+      const searchInput = document.getElementById(raceType + 'Search').value.toLowerCase();
+      const tableBody = document.getElementById(raceType + 'Body');
+      const rows = tableBody.getElementsByTagName('tr');
+      
+      Array.from(rows).forEach(row => {
+        const cells = row.getElementsByTagName('td');
+        let rowContainsSearch = false;
 
-      totalCountPatibayan1.innerText = `Total Birds in Patibayan 1: ${filteredRows1.length}`;
-      totalCountPatibayan2.innerText = `Total Birds in Patibayan 2: ${filteredRows2.length}`;
-      totalCountMessage.innerText = `Total Birds: ${filteredRows1.length + filteredRows2.length}`;
+        Array.from(cells).forEach(cell => {
+          if (cell.textContent.toLowerCase().includes(searchInput)) {
+            rowContainsSearch = true;
+          }
+        });
+
+        row.style.display = rowContainsSearch ? '' : 'none';
+      });
     }
 
-    // Search function with debounce to filter the table
-    let debounceTimeout;
-    let searchDelay = 300; // Delay in milliseconds for debounce
-    function searchResults() {
-      clearTimeout(debounceTimeout); // Clear any previous debounce timer
+   // Function to filter both Patibayan tables
+// Function to filter both Patibayan tables
+// Function to filter both Patibayan tables with a single search box
+function filterPatibayanTables() {
+  const searchInput = document.getElementById('patibayanSearch').value.toLowerCase();
+  
+  // Get both Patibayan tables
+  const patibayan1TableBody = document.getElementById('patibayan1Body');
+  const patibayan2TableBody = document.getElementById('patibayan2Body');
+  
+  // Filter Patibayan 1 rows
+  filterTableRows(patibayan1TableBody, searchInput);
 
-      debounceTimeout = setTimeout(() => {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        
-        // Filter Patibayan 1 and Patibayan 2 data separately
-        let filteredRowsPatibayan1 = filteredDataPatibayan1.filter(row => {
-          return row.some(cell => cell.toLowerCase().includes(input));
-        });
-        
-        let filteredRowsPatibayan2 = filteredDataPatibayan2.filter(row => {
-          return row.some(cell => cell.toLowerCase().includes(input));
-        });
+  // Filter Patibayan 2 rows
+  filterTableRows(patibayan2TableBody, searchInput);
+}
 
-        // Display filtered rows in both tables
-        displayFilteredResults('patibayan1Body', filteredRowsPatibayan1);
-        displayFilteredResults('patibayan2Body', filteredRowsPatibayan2);
+// Helper function to filter rows for a specific table
+function filterTableRows(tableBody, searchInput) {
+  const rows = tableBody.getElementsByTagName('tr');
+  Array.from(rows).forEach(row => {
+    const cells = row.getElementsByTagName('td');
+    let rowContainsSearch = false;
 
-        // Update the total count of filtered birds
-        updateTotalCount(filteredRowsPatibayan1, filteredRowsPatibayan2);
-      }, searchDelay); // Delay the search function by `searchDelay` milliseconds
-    }
-
-    // Function to display filtered results in the table
-    function displayFilteredResults(tableId, filteredRows) {
-      const tableBody = document.getElementById(tableId);
-      tableBody.innerHTML = ''; // Clear current rows
-
-      if (filteredRows.length > 0) {
-        filteredRows.forEach(rowData => {
-          const row = document.createElement('tr');
-          rowData.forEach(cellData => {
-            const td = document.createElement('td');
-            td.innerText = cellData;
-            row.appendChild(td);
-          });
-          tableBody.appendChild(row);
-        });
-      } else {
-        document.getElementById('noDataMessage').style.display = 'block';
+    Array.from(cells).forEach(cell => {
+      if (cell.textContent.toLowerCase().includes(searchInput)) {
+        rowContainsSearch = true;
       }
-    }
+    });
 
-    // Load the race data for both Patibayan1 and Patibayan2 on page load
-    fetchRaceData();
+    row.style.display = rowContainsSearch ? '' : 'none';
+  });
+}
+
+
   </script>
+
 </body>
 </html>
